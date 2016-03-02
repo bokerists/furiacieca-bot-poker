@@ -133,7 +133,7 @@ exports = module.exports = {
       ourBet = Infinity;
     }
     
-    if (turniInDue > 5 && numPlayers == 2 && !highPair) {
+    if (turniInDue > 5 && !highPair) {
       ourBet = gamestate.callAmount;
     }
 
