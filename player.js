@@ -101,8 +101,10 @@ exports = module.exports = {
     var pair = hasPair(hand);
     var tris = hasTris(hand);
     var poker = hasPoker(hand);
+    var color = hasColor(hand);
     var highPair = highCards.indexOf(pair) >= 0;
     var highTris = highCards.indexOf(tris) >= 0;
+
 
     if (gamestate.commonCards.length < 3) {
         if (!pair) {
@@ -124,8 +126,6 @@ exports = module.exports = {
     } else if (pair) {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
-
-    console.log(highTris)
 
     if (isArcangeloAllInSubito && (highTris || highPair)) {
       ourBet = Infinity;
