@@ -63,8 +63,7 @@ var hasPoker = function(cards) {
 }
 
 var hasColor = function(cards) {
-  var k = _.keys(cards);
-  console.log(k);
+  return _.uniq(_.map(cards, 'type')).length === 1;
 }
 
 var mapVal = {
@@ -95,7 +94,7 @@ exports = module.exports = {
     var highCards = ['K', 'J', 'Q', 'A'];
     var allInPlayers = _.filter(gamestate.players, function(g) { return g.chips == 0 } ).length;
     var isArcangeloAllInSubito = gamestate.commonCards.length == 0 && allInPlayers > 0;
-    
+    var river = gamestate.commonCards.length === 5; 
 
     // What we have
     var pair = hasPair(hand);
@@ -139,6 +138,10 @@ exports = module.exports = {
       ourBet = Infinity;
     }
 
+    if (color && river) {
+      console.log('color')
+      ourBet = Infinity;
+    }
     
 
     return bet(ourBet);

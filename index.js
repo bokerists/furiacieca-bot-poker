@@ -1,8 +1,9 @@
 var player = require('./player.js');
 
-var hand = [ {rank: '2', type: 'D'}, {rank: 'Q', type: 'S'}];
+var hand = [ {rank: '2', type: 'C'}, {rank: 'Q', type: 'C'}];
 
 var table = [ {rank: '2', type: 'C'}, {rank: '3', type: 'D'}, {rank: '5', type: 'T'}, {rank: 'K', type: 'T'} ];
+var tableColor = [ {rank: '2', type: 'C'}, {rank: '3', type: 'C'}, {rank: '5', type: 'C'}, {rank: 'K', type: 'C'}, {rank: '7', type: 'C'} ];
 
 
 var gamestate = {
@@ -11,7 +12,7 @@ var gamestate = {
     "spinCount": 2,
     "sb": 2,
     "pot": 100,
-    "commonCards": table,
+    "commonCards": tableColor,
     "players": [{
     	status: 'active',
     	cards: hand
