@@ -52,26 +52,30 @@ exports = module.exports = {
     var me = gamestate.players[gamestate.me];
     var hand = gamestate.commonCards.concat(me.cards);
 
-    var hasPair = hasPair(hand);
-    var hasTris = hasTris(hand);
-    var hasPoker = hasPoker(hand);
-
-
-   
+    var pair = hasPair(hand);
+    var tris = hasTris(hand);
+    var poker = hasPoker(hand);
 
     if (gamestate.commonCards.length < 3) {
-      return bet(gamestate.callAmount);
+        if (!pair) {
+          return bet(gamestate.callAmount);
+        }
     }
+   
+
+    
 
     var ourBet = 0;
 
-    if (hasPoker) {
+    if (poker) {
       ourBet = gamestate.callAmount * 2;
-    } else if (hasTris) {
+    } else if (tris) {
       ourBet = gamestate.callAmount * 1.2;
-    } else if (hasPair) {
+    } else if (pair) {
       ourBet = gamestate.callAmount;
     }
+
+
     //
     // gamestate contains info about the state of the game.
     // check the documentation at https://bot-poker.herokuapp.com/wiki for further info about the data structure.
