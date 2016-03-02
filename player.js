@@ -63,7 +63,7 @@ var hasPoker = function(cards) {
 }
 
 var hasColor = function(cards) {
-  return _.uniq(_.map(cards, 'type')).length === 1;
+  return cards.length >= 5 && _.uniq(_.map(cards, 'type')).length === 1;
 }
 
 var mapVal = {
@@ -138,7 +138,7 @@ exports = module.exports = {
       ourBet = Infinity;
     }
 
-    if (color && river) {
+    if (color) {
       console.log('color')
       ourBet = Infinity;
     }
