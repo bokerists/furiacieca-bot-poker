@@ -87,6 +87,7 @@ exports = module.exports = {
     var me = gamestate.players[gamestate.me];
     var hand = gamestate.commonCards.concat(me.cards);
     var numPlayers = _.filter(gamestate.players, function(g) { return g.status == 'active'} ).length;
+    var highCards = ['K', 'J', 'Q', 'A'];
 
     //console.log('numPlayers', numPlayers)
 
@@ -116,7 +117,9 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
 
-    //if (_.find(['K', 'J', 'Q', 'A']))
+    if (_.find(highCards, tris) != undefined) {
+      console.log('high tris')
+    }
 
     if (numPlayers == 2 && poker !== false) {
       ourBet = Infinity;
