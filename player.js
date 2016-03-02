@@ -89,6 +89,8 @@ exports = module.exports = {
     var numPlayers = _.filter(gamestate.players, function(g) { return g.status == 'active'} ).length;
     var highCards = ['K', 'J', 'Q', 'A'];
 
+    var allInPlayers = _.filter(gamestate.players, function(g) { return g.chips == 0 } ).length;
+
     //console.log('numPlayers', numPlayers)
 
 
@@ -104,7 +106,9 @@ exports = module.exports = {
    
     var ourBet = 0;
 
-    if (gamestate.commonCards.length < 5) {
+    if (gamestate.commonCards.length == 0 && allInPlayers > 0) {
+      ourBet = 0
+    } else if (gamestate.commonCards.length < 5) {
       ourBet = gamestate.callAmount;
     }
 
@@ -115,6 +119,10 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[tris] * 2;
     } else if (pair) {
       ourBet = gamestate.callAmount + mapVal[pair];
+    }
+
+    if (gamestate.commonCards.length == 0 && allInPlayers > 0 && highCards.indexOf(pair) >= 0) {
+      ourBet = Infinity;
     }
 
 
