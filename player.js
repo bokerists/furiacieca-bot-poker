@@ -52,9 +52,9 @@ exports = module.exports = {
     var ourBet = 0;
 
     if (hasPair) {
-      ourBet = gamestate.pot;
+      ourBet = gamestate.callAmount;
     } else if (hasTris) {
-      ourBet = gamestate.pot * 1.2;
+      ourBet = gamestate.callAmount * 1.2;
     }
     //
     // gamestate contains info about the state of the game.
