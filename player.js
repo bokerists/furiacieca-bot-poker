@@ -117,8 +117,9 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
 
-    if (_.find(highCards, tris) != undefined) {
-      console.log('high tris')
+
+    if (highCards.indexOf(tris) >= 0) {
+      ourBet = Infinity;
     }
 
     if (numPlayers == 2 && poker !== false) {
