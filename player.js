@@ -56,8 +56,14 @@ exports = module.exports = {
     var hasTris = hasTris(hand);
     var hasPoker = hasPoker(hand);
 
-    var ourBet = 0;
 
+   
+
+    if (gamestate.commonCards.length < 3) {
+      return bet(gamestate.callAmount);
+    }
+
+    var ourBet = 0;
 
     if (hasPoker) {
       ourBet = gamestate.callAmount * 2;
