@@ -105,9 +105,9 @@ exports = module.exports = {
 
     
     if (poker) {
-      ourBet = gamestate.callAmount + mapVal[poker] * 2;
+      ourBet = gamestate.callAmount + mapVal[poker] * 3;
     } else if (tris) {
-      ourBet = gamestate.callAmount + mapVal[tris] * 1.1;
+      ourBet = gamestate.callAmount + mapVal[tris] * 2;
     } else if (pair) {
       ourBet = gamestate.callAmount + mapVal[pair];
     }

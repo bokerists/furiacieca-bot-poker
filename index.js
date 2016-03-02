@@ -1,8 +1,8 @@
 var player = require('./player.js');
 
-var hand = [{rank: '2', type: 'D'},{rank: 'K', type: 'S'}];
+var hand = [ {rank: '2', type: 'D'}, {rank: 'K', type: 'S'}];
 
-var table = [ {rank: 'K', type: 'C'}, {rank: '3', type: 'D'}, {rank: '5', type: 'T'} ];
+var table = [ {rank: 'K', type: 'C'}, {rank: '3', type: 'D'}, {rank: '5', type: 'T'}, {rank: 'K', type: 'T'} ];
 
 
 var gamestate = {
