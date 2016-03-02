@@ -62,18 +62,18 @@ var hasPoker = function(cards) {
 
 var mapVal = {
   '1': 2,
-  '2': 1.1,
-  '3': 1.1,
-  '4': 1.1,
-  '5': 1.1,
-  '6': 1.1,
-  '7': 1.1,
-  '8': 1.1,
-  '9': 1.1,
-  '10': 1.3,
-  'J': 1.4,
-  'Q': 1.6,
-  'K': 1.8
+  '2': 1,
+  '3': 1,
+  '4': 1,
+  '5': 1,
+  '6': 1,
+  '7': 1,
+  '8': 1,
+  '9': 1,
+  '10': 3,
+  'J': 4,
+  'Q': 6,
+  'K': 8
 }
 
 exports = module.exports = {
@@ -84,6 +84,8 @@ exports = module.exports = {
 
     var me = gamestate.players[gamestate.me];
     var hand = gamestate.commonCards.concat(me.cards);
+    var numPlayers = gamestate.players.length;
+
 
     var pair = hasPair(hand);
     var tris = hasTris(hand);
@@ -103,11 +105,11 @@ exports = module.exports = {
 
     
     if (poker) {
-      ourBet = gamestate.callAmount * mapVal[poker] * 2;
+      ourBet = gamestate.callAmount + mapVal[poker] * 2;
     } else if (tris) {
-      ourBet = gamestate.callAmount * mapVal[tris] * 1.2;
+      ourBet = gamestate.callAmount + mapVal[tris] * 1.1;
     } else if (pair) {
-      ourBet = gamestate.callAmount * mapVal[pair];
+      ourBet = gamestate.callAmount + mapVal[pair];
     }
 
 
