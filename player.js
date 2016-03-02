@@ -95,11 +95,14 @@ exports = module.exports = {
     var highTris = highCards.indexOf(tris) >= 0;
 
 
-    if (gamestate.commonCards.length < 3) {
-        if (!pair) {
-          return bet(gamestate.callAmount);
-        }
+    if (gamestate.commonCards.length < 3 && !pair) {
+      return bet(gamestate.callAmount);
     }
+
+    // prevent loops
+   // if (turniInDue > 10 && !highPair) {
+    //  return bet(gamestate.callAmount);
+    //}
    
     var ourBet = 0;
 
@@ -133,9 +136,7 @@ exports = module.exports = {
       ourBet = Infinity;
     }
     
-    if (turniInDue > 5 && !highPair) {
-      ourBet = gamestate.callAmount;
-    }
+   
 
     return bet(ourBet);
 
