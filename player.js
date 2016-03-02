@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require("lodash");
 
 var getRank = function(cards) {
@@ -61,19 +63,19 @@ var hasPoker = function(cards) {
 }
 
 var mapVal = {
-  '1': 2,
-  '2': 1,
-  '3': 1,
-  '4': 1,
-  '5': 1,
-  '6': 1,
-  '7': 1,
-  '8': 1,
-  '9': 1,
-  '10': 3,
-  'J': 4,
-  'Q': 6,
-  'K': 8
+  '1': 20,
+  '2': 10,
+  '3': 10,
+  '4': 10,
+  '5': 10,
+  '6': 10,
+  '7': 10,
+  '8': 10,
+  '9': 10,
+  '10': 30,
+  'J': 40,
+  'Q': 60,
+  'K': 80
 }
 
 exports = module.exports = {
@@ -85,6 +87,8 @@ exports = module.exports = {
     var me = gamestate.players[gamestate.me];
     var hand = gamestate.commonCards.concat(me.cards);
     var numPlayers = gamestate.players.length;
+
+    var howManyChipsIHave = me.chips;
 
 
     var pair = hasPair(hand);
@@ -112,24 +116,7 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
 
-
-    //
-    // gamestate contains info about the state of the game.
-    // check the documentation at https://bot-poker.herokuapp.com/wiki for further info about the data structure.
-
-    //
-    // bet is the function you should use to send your bet.
-
-
-
-    // enjoy the game!
-
-
-
-    //
-    // currently we just go all-in every single hand!
-
-    'use strict';
+    
 
     return bet(ourBet);
 
