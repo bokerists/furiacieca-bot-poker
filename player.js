@@ -116,6 +116,10 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
 
+    if (numPlayers == 2 && poker !== false) {
+      ourBet = Infinity;
+    }
+
     
 
     return bet(ourBet);
