@@ -63,6 +63,8 @@ var mapVal = {
   'A': 1000,
 }
 
+var turniInDue = 0;
+
 exports = module.exports = {
 
   VERSION: 'Superstar poker player',
@@ -76,6 +78,13 @@ exports = module.exports = {
     var allInPlayers = _.filter(gamestate.players, function(g) { return g.chips == 0 } ).length;
     var isArcangeloAllInSubito = gamestate.commonCards.length == 0 && allInPlayers > 0;
     var river = gamestate.commonCards.length === 5; 
+
+
+    if (numPlayers == 2) {
+      turniInDue++;
+    } else {
+      turniInDue = 0;
+    }
 
     // What we have
     var pair = hasPair(hand);
@@ -124,6 +133,9 @@ exports = module.exports = {
       ourBet = Infinity;
     }
     
+    if (turniInDue > 5 && numPlayers == 2 && !highPair) {
+      ourBet = gamestate.callAmount;
+    }
 
     return bet(ourBet);
 
