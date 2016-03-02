@@ -54,6 +54,7 @@ exports = module.exports = {
 
     var hasPair = hasPair(hand);
     var hasTris = hasTris(hand);
+    var hasPoker = hasPoker(hand);
 
     var ourBet = 0;
 
