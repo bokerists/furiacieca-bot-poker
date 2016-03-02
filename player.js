@@ -62,6 +62,11 @@ var hasPoker = function(cards) {
   return false;
 }
 
+var hasColor = function(cards) {
+  var k = _.keys(cards);
+  console.log(k);
+}
+
 var mapVal = {
   '2': 10,
   '3': 10,
@@ -90,13 +95,14 @@ exports = module.exports = {
     var highCards = ['K', 'J', 'Q', 'A'];
     var allInPlayers = _.filter(gamestate.players, function(g) { return g.chips == 0 } ).length;
     var isArcangeloAllInSubito = gamestate.commonCards.length == 0 && allInPlayers > 0;
+    
 
-    //console.log('numPlayers', numPlayers)
-
-
+    // What we have
     var pair = hasPair(hand);
     var tris = hasTris(hand);
     var poker = hasPoker(hand);
+    var highPair = highCards.indexOf(pair) >= 0;
+    var highTris = highCards.indexOf(tris) >= 0;
 
     if (gamestate.commonCards.length < 3) {
         if (!pair) {
@@ -106,14 +112,10 @@ exports = module.exports = {
    
     var ourBet = 0;
 
-    if (isArcangeloAllInSubito) {
-      ourBet = 0
-    } else if (gamestate.commonCards.length < 5) {
+    if (gamestate.commonCards.length < 5 && !isArcangeloAllInSubito) {
       ourBet = gamestate.callAmount;
     }
 
-    var highPair = highCards.indexOf(pair) >= 0;
-    var highTris = highCards.indexOf(tris) >= 0;
     
     if (poker) {
       ourBet = gamestate.callAmount + mapVal[poker] * 3;
@@ -123,12 +125,13 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
 
+    console.log(highTris)
+
     if (isArcangeloAllInSubito && (highTris || highPair)) {
       ourBet = Infinity;
     }
 
-
-    if (highTris >= 0) {
+    if (highTris) {
       ourBet = Infinity;
     }
 
