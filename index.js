@@ -12,7 +12,7 @@ var gamestate = {
     "spinCount": 2,
     "sb": 2,
     "pot": 100,
-    "commonCards": tableColor,
+    "commonCards": table,
     "players": [{
     	status: 'active',
     	cards: hand

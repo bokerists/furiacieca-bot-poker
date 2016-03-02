@@ -2,26 +2,7 @@
 
 var _ = require("lodash");
 
-var getRank = function(cards) {
-  return _.map(cards, function(card) {
-    return card.rank;
-  })
-}
-
-var getOccurencies = function(cards) {
-  var ranks = getRank(cards);
-  
-   var count = {};
-    ranks.forEach(function(rank) {
-        if (typeof count[rank] === 'undefined') {
-          count[rank] = 1;
-        } else {
-          count[rank] += 1;
-        }
-    });
-  
-  return count; 
-}
+var getRank = _.partialRight(_.map, 'rank');
 
 var hasPair = function(cards) {
   var grouped = _.groupBy(cards, 'rank');
@@ -67,19 +48,19 @@ var hasColor = function(cards) {
 }
 
 var mapVal = {
-  '2': 10,
-  '3': 10,
-  '4': 10,
-  '5': 10,
-  '6': 10,
-  '7': 10,
-  '8': 10,
-  '9': 10,
-  '10': 30,
-  'J': 40,
-  'Q': 60,
-  'K': 80,
-  'A': 100,
+  '2': 100,
+  '3': 100,
+  '4': 100,
+  '5': 100,
+  '6': 100,
+  '7': 100,
+  '8': 100,
+  '9': 100,
+  '10': 300,
+  'J': 400,
+  'Q': 600,
+  'K': 800,
+  'A': 1000,
 }
 
 exports = module.exports = {
