@@ -86,7 +86,9 @@ exports = module.exports = {
 
     var me = gamestate.players[gamestate.me];
     var hand = gamestate.commonCards.concat(me.cards);
-    var numPlayers = gamestate.players.length;
+    var numPlayers = _.filter(gamestate.players, function(g) { return g.status == 'active'} ).length;
+
+    console.log('numPlayers', numPlayers)
 
     var howManyChipsIHave = me.chips;
 

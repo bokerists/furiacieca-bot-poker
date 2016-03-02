@@ -13,7 +13,14 @@ var gamestate = {
     "pot": 100,
     "commonCards": table,
     "players": [{
+    	status: 'active',
     	cards: hand
+    }, {
+    	status: 'active',
+    	cards: []
+    }, {
+    	status: 'folded',
+    	cards: []
     }],
     // Index of the current player.
     "me": 0,
