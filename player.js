@@ -21,8 +21,6 @@ var getOccurencies = function(cards) {
   return count; 
 }
 
-
-
 var hasPair = function(cards) {
   var grouped = _.groupBy(cards, 'rank');
   for (var key in grouped) {
@@ -91,19 +89,19 @@ exports = module.exports = {
     var tris = hasTris(hand);
     var poker = hasPoker(hand);
 
-    console.log('pair', pair);
-
     if (gamestate.commonCards.length < 3) {
         if (!pair) {
           return bet(gamestate.callAmount);
         }
     }
    
-
-    
-
     var ourBet = 0;
 
+    if (gamestate.commonCards.length < 5) {
+      ourBet = gamestate.callAmount;
+    }
+
+    
     if (poker) {
       ourBet = gamestate.callAmount * mapVal[poker] * 2;
     } else if (tris) {
