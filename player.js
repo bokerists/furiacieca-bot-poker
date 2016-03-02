@@ -1,8 +1,10 @@
 'use strict';
 
 var _ = require("lodash");
+var highCards = ['K', 'J', 'Q', 'A'];
 
 var getRank = _.partialRight(_.map, 'rank');
+var getType = _.partialRight(_.map, 'type');
 
 var hasPair = function(cards) {
   var grouped = _.groupBy(cards, 'rank');
@@ -44,7 +46,7 @@ var hasPoker = function(cards) {
 }
 
 var hasColor = function(cards) {
-  return cards.length >= 5 && _.uniq(_.map(cards, 'type')).length === 1;
+  return cards.length >= 5 && _.uniq(getType).length === 1;
 }
 
 var mapVal = {
@@ -74,7 +76,7 @@ exports = module.exports = {
     var me = gamestate.players[gamestate.me];
     var hand = gamestate.commonCards.concat(me.cards);
     var numPlayers = _.filter(gamestate.players, function(g) { return g.status == 'active'} ).length;
-    var highCards = ['K', 'J', 'Q', 'A'];
+    
     var allInPlayers = _.filter(gamestate.players, function(g) { return g.chips == 0 } ).length;
     var isArcangeloAllInSubito = gamestate.commonCards.length == 0 && allInPlayers > 0;
     var river = gamestate.commonCards.length === 5; 
@@ -100,9 +102,9 @@ exports = module.exports = {
     }
 
     // prevent loops
-   // if (turniInDue > 10 && !highPair) {
-    //  return bet(gamestate.callAmount);
-    //}
+    if (turniInDue > 10 && !highPair) {
+      return bet(gamestate.callAmount);
+    }
    
     var ourBet = 0;
 
