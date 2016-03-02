@@ -88,8 +88,8 @@ exports = module.exports = {
     var hand = gamestate.commonCards.concat(me.cards);
     var numPlayers = _.filter(gamestate.players, function(g) { return g.status == 'active'} ).length;
     var highCards = ['K', 'J', 'Q', 'A'];
-
     var allInPlayers = _.filter(gamestate.players, function(g) { return g.chips == 0 } ).length;
+    var isArcangeloAllInSubito = gamestate.commonCards.length == 0 && allInPlayers > 0;
 
     //console.log('numPlayers', numPlayers)
 
@@ -106,12 +106,14 @@ exports = module.exports = {
    
     var ourBet = 0;
 
-    if (gamestate.commonCards.length == 0 && allInPlayers > 0) {
+    if (isArcangeloAllInSubito) {
       ourBet = 0
     } else if (gamestate.commonCards.length < 5) {
       ourBet = gamestate.callAmount;
     }
 
+    var highPair = highCards.indexOf(pair) >= 0;
+    var highTris = highCards.indexOf(tris) >= 0;
     
     if (poker) {
       ourBet = gamestate.callAmount + mapVal[poker] * 3;
@@ -121,12 +123,12 @@ exports = module.exports = {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
 
-    if (gamestate.commonCards.length == 0 && allInPlayers > 0 && highCards.indexOf(pair) >= 0) {
+    if (isArcangeloAllInSubito && (highTris || highPair)) {
       ourBet = Infinity;
     }
 
 
-    if (highCards.indexOf(tris) >= 0) {
+    if (highTris >= 0) {
       ourBet = Infinity;
     }
 
