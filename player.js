@@ -25,9 +25,7 @@ var getOccurencies = function(cards) {
 
 var hasPair = function(cards) {
   var grouped = _.groupBy(cards, 'rank');
-
   for (var key in grouped) {
-    // check also if property is not inherited from prototype
     if (grouped.hasOwnProperty(key)) { 
       var arrayOfCards = grouped[key];
       if (arrayOfCards.length == 2) {
@@ -39,18 +37,32 @@ var hasPair = function(cards) {
 }
 
 var hasTris = function(cards) {
-  var occ = getOccurencies(cards); 
-  var pairs = _.filter(occ, function(elem) { return elem == 3; });
-  return pairs.length > 0
+  var grouped = _.groupBy(cards, 'rank');
+  for (var key in grouped) {
+    if (grouped.hasOwnProperty(key)) { 
+      var arrayOfCards = grouped[key];
+      if (arrayOfCards.length == 3) {
+        return key;
+      }
+    }
+  }
+  return false;
 }
 
 var hasPoker = function(cards) {
-  var occ = getOccurencies(cards); 
-  var pairs = _.filter(occ, function(elem) { return elem == 4; });
-  return pairs.length > 0
+  var grouped = _.groupBy(cards, 'rank');
+  for (var key in grouped) {
+    if (grouped.hasOwnProperty(key)) { 
+      var arrayOfCards = grouped[key];
+      if (arrayOfCards.length == 4) {
+        return key;
+      }
+    }
+  }
+  return false;
 }
 
-var mapPair = {
+var mapVal = {
   '1': 2,
   '2': 1.1,
   '3': 1.1,
@@ -93,11 +105,11 @@ exports = module.exports = {
     var ourBet = 0;
 
     if (poker) {
-      ourBet = gamestate.callAmount * 2;
+      ourBet = gamestate.callAmount * mapVal[poker] * 2;
     } else if (tris) {
-      ourBet = gamestate.callAmount * 1.2;
+      ourBet = gamestate.callAmount * mapVal[tris] * 1.2;
     } else if (pair) {
-      ourBet = gamestate.callAmount * mapPair[pair];
+      ourBet = gamestate.callAmount * mapVal[pair];
     }
 
 
