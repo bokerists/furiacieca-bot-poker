@@ -10,25 +10,32 @@ var getOccurencies = function(cards) {
   var ranks = getRank(cards);
   
    var count = {};
-    ranks.forEach(function(rank){
-      
-      
-    
+    ranks.forEach(function(rank) {
         if (typeof count[rank] === 'undefined') {
           count[rank] = 1;
         } else {
           count[rank] += 1;
         }
- 
     });
   
   return count; 
 }
 
+
+
 var hasPair = function(cards) {
-  var occ = getOccurencies(cards); 
-  var pairs = _.filter(occ, function(elem) { return elem == 2; });
-  return pairs.length > 0
+  var grouped = _.groupBy(cards, 'rank');
+
+  for (var key in grouped) {
+    // check also if property is not inherited from prototype
+    if (grouped.hasOwnProperty(key)) { 
+      var arrayOfCards = grouped[key];
+      if (arrayOfCards.length == 2) {
+        return key;
+      }
+    }
+  }
+  return false;
 }
 
 var hasTris = function(cards) {
@@ -43,6 +50,22 @@ var hasPoker = function(cards) {
   return pairs.length > 0
 }
 
+var mapPair = {
+  '1': 2,
+  '2': 1.1,
+  '3': 1.1,
+  '4': 1.1,
+  '5': 1.1,
+  '6': 1.1,
+  '7': 1.1,
+  '8': 1.1,
+  '9': 1.1,
+  '10': 1.3,
+  'J': 1.4,
+  'Q': 1.6,
+  'K': 1.8
+}
+
 exports = module.exports = {
 
   VERSION: 'Superstar poker player',
@@ -55,6 +78,8 @@ exports = module.exports = {
     var pair = hasPair(hand);
     var tris = hasTris(hand);
     var poker = hasPoker(hand);
+
+    console.log('pair', pair);
 
     if (gamestate.commonCards.length < 3) {
         if (!pair) {
@@ -72,7 +97,7 @@ exports = module.exports = {
     } else if (tris) {
       ourBet = gamestate.callAmount * 1.2;
     } else if (pair) {
-      ourBet = gamestate.callAmount;
+      ourBet = gamestate.callAmount * mapPair[pair];
     }
 
 
