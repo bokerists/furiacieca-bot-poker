@@ -37,6 +37,12 @@ var hasTris = function(cards) {
   return pairs.length > 0
 }
 
+var hasPoker = function(cards) {
+  var occ = getOccurencies(cards); 
+  var pairs = _.filter(occ, function(elem) { return elem == 4; });
+  return pairs.length > 0
+}
+
 exports = module.exports = {
 
   VERSION: 'Superstar poker player',
@@ -51,10 +57,13 @@ exports = module.exports = {
 
     var ourBet = 0;
 
-    if (hasPair) {
-      ourBet = gamestate.callAmount;
+
+    if (hasPoker) {
+      ourBet = gamestate.callAmount * 2;
     } else if (hasTris) {
       ourBet = gamestate.callAmount * 1.2;
+    } else if (hasPair) {
+      ourBet = gamestate.callAmount;
     }
     //
     // gamestate contains info about the state of the game.
