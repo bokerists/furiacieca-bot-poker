@@ -63,7 +63,6 @@ var hasPoker = function(cards) {
 }
 
 var mapVal = {
-  '1': 20,
   '2': 10,
   '3': 10,
   '4': 10,
@@ -75,7 +74,8 @@ var mapVal = {
   '10': 30,
   'J': 40,
   'Q': 60,
-  'K': 80
+  'K': 80,
+  'A': 100,
 }
 
 exports = module.exports = {
@@ -88,9 +88,7 @@ exports = module.exports = {
     var hand = gamestate.commonCards.concat(me.cards);
     var numPlayers = _.filter(gamestate.players, function(g) { return g.status == 'active'} ).length;
 
-    console.log('numPlayers', numPlayers)
-
-    var howManyChipsIHave = me.chips;
+    //console.log('numPlayers', numPlayers)
 
 
     var pair = hasPair(hand);
@@ -117,6 +115,8 @@ exports = module.exports = {
     } else if (pair) {
       ourBet = gamestate.callAmount + mapVal[pair];
     }
+
+    //if (_.find(['K', 'J', 'Q', 'A']))
 
     if (numPlayers == 2 && poker !== false) {
       ourBet = Infinity;
