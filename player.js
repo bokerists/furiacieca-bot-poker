@@ -27,12 +27,15 @@ var getOccurencies = function(cards) {
 
 var hasPair = function(cards) {
   var occ = getOccurencies(cards); 
-  var pairs = _.filter(occ, function(elem) {
-    return elem == 2;
-  })
+  var pairs = _.filter(occ, function(elem) { return elem == 2; });
   return pairs.length > 0
 }
 
+var hasTris = function(cards) {
+  var occ = getOccurencies(cards); 
+  var pairs = _.filter(occ, function(elem) { return elem == 3; });
+  return pairs.length > 0
+}
 
 exports = module.exports = {
 
@@ -44,9 +47,15 @@ exports = module.exports = {
     var hand = gamestate.commonCards.concat(me.cards);
 
     var hasPair = hasPair(hand);
+    var hasTris = hasTris(hand);
 
     var ourBet = 0;
 
+    if (hasPair) {
+      ourBet = gamestate.pot;
+    } else if (hasTris) {
+      ourBet = gamestate.pot * 1.2;
+    }
     //
     // gamestate contains info about the state of the game.
     // check the documentation at https://bot-poker.herokuapp.com/wiki for further info about the data structure.
